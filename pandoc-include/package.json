@@ -21,9 +21,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc -p",
+    "build": "tsc -p .",
     "prepublishOnly": "npm run build",
-    "watch": "tsc -pw"
+    "watch": "tsc -p . -w"
   },
   "dependencies": {
     "execa": "^1.0.0",
