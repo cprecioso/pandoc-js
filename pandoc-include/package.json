@@ -1,6 +1,6 @@
 {
   "name": "pandoc-include",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://gitlab.com/cprecioso/pandoc-utils/tree/master/pandoc-include#readme",
   "bugs": {
     "url": "https://gitlab.com/cprecioso/pandoc-utils/issues"
@@ -9,7 +9,8 @@
   "license": "MIT",
   "author": "Carlos Precioso <kalprestito@gmail.com>",
   "files": [
-    "lib"
+    "lib",
+    "types"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
