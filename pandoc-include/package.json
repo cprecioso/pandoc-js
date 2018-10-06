@@ -1,20 +1,37 @@
 {
   "name": "pandoc-include",
-  "version": "1.0.0",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "typings": "lib/index.d.ts",
-  "bin": "lib/bin.js",
+  "version": "1.0.1",
+  "homepage": "https://gitlab.com/cprecioso/pandoc-utils/tree/master/pandoc-include#readme",
+  "bugs": {
+    "url": "https://gitlab.com/cprecioso/pandoc-utils/issues"
+  },
+  "repository": "git+https://cprecioso@gitlab.com/cprecioso/pandoc-utils.git",
+  "license": "MIT",
+  "author": "Carlos Precioso <kalprestito@gmail.com>",
   "files": [
     "lib"
   ],
-  "devDependencies": {
-    "@types/execa": "^0.9.0",
-    "@types/get-stdin": "^5.0.1",
-    "typescript": "^3.1.1"
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
+  "bin": {
+    "pandoc-include": "lib/bin.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc -p",
+    "prepublishOnly": "npm run build",
+    "watch": "tsc -pw"
   },
   "dependencies": {
     "execa": "^1.0.0",
     "get-stdin": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/execa": "^0.9.0",
+    "@types/get-stdin": "^5.0.1",
+    "typescript": "^3.1.1"
   }
 }
