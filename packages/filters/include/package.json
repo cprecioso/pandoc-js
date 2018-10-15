@@ -1,11 +1,11 @@
 {
   "name": "pandoc-include",
   "version": "1.0.2",
-  "homepage": "https://gitlab.com/cprecioso/pandoc-utils/tree/master/pandoc-include#readme",
+  "homepage": "https://gitlab.com/cprecioso/pandoc-utils/tree/master/packages/filters/include#readme",
   "bugs": {
     "url": "https://gitlab.com/cprecioso/pandoc-utils/issues"
   },
-  "repository": "git+https://cprecioso@gitlab.com/cprecioso/pandoc-utils.git",
+  "repository": "git+https://gitlab.com/cprecioso/pandoc-utils.git",
   "license": "MIT",
   "author": "Carlos Precioso <kalprestito@gmail.com>",
   "files": [
@@ -22,19 +22,20 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc --build",
     "clean": "del-cli lib",
     "prepublishOnly": "npm run clean; npm run build",
-    "watch": "tsc -p . -w"
+    "watch": "tsc --build --watch"
   },
   "dependencies": {
     "execa": "^1.0.0",
-    "get-stdin": "^6.0.0"
+    "get-stdin": "^6.0.0",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "@types/execa": "^0.9.0",
     "@types/get-stdin": "^5.0.1",
     "del-cli": "^1.1.0",
-    "typescript": "^3.1.1"
+    "typescript": "^3.1.3"
   }
 }
