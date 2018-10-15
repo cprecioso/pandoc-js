@@ -1,6 +1,6 @@
+import * as AST from "@pandoc/ast"
 import execa from "execa"
 import { resolve } from "path"
-import * as AST from "../types/pandoc-ast"
 
 async function collectAsyncGenerator<T>(iter: AsyncIterable<T>) {
   const ret: T[] = []
@@ -16,7 +16,7 @@ async function parseBlocks(path: string, lang = "markdown") {
       stdio: ["ignore", "pipe", "inherit"]
     }
   )
-  const ast: AST.JSON = JSON.parse(stdout)
+  const ast: AST.Document = JSON.parse(stdout)
   return ast.blocks
 }
 
@@ -47,7 +47,9 @@ export async function* transformBlocks(
   }
 }
 
-export async function transformFile(input: AST.JSON): Promise<AST.JSON> {
+export async function transformFile(
+  input: AST.Document
+): Promise<AST.Document> {
   input.blocks = await collectAsyncGenerator(transformBlocks(input.blocks))
   return input
 }

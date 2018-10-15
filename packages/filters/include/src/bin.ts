@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import getStdin from "get-stdin";
-import transformFile from ".";
-import * as AST from "../types/pandoc-ast";
+import * as AST from "@pandoc/ast"
+import getStdin from "get-stdin"
+import transformFile from "."
 
 void (async () => {
-  const input: AST.JSON = JSON.parse(await getStdin())
-  const output: AST.JSON = await transformFile(input)
+  const input: AST.Document = JSON.parse(await getStdin())
+  const output: AST.Document = await transformFile(input)
   console.log(JSON.stringify(output))
 })()
