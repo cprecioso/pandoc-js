@@ -1,0 +1,38 @@
+{
+  "name": "@pandoc/ast",
+  "version": "0.0.0",
+  "description": "Pandoc AST types",
+  "keywords": [
+    "ast",
+    "pandoc"
+  ],
+  "homepage": "https://gitlab.com/cprecioso/pandoc-utils/tree/master/packages/ast#readme",
+  "bugs": {
+    "url": "https://gitlab.com/cprecioso/pandoc-utils/issues"
+  },
+  "repository": "git+https://gitlab.com/cprecioso/pandoc-utils.git",
+  "license": "MIT",
+  "author": "Carlos Precioso <kalprestito@gmail.com>",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "del-cli lib",
+    "prepublishOnly": "npm run clean; npm run build",
+    "watch": "tsc --build --watch"
+  },
+  "dependencies": {
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "del-cli": "^1.1.0",
+    "typescript": "^3.1.3"
+  }
+}
