@@ -1,40 +1,21 @@
 import * as AST from "@pandoc/ast"
-import execa from "execa"
-import { resolve } from "path"
+import { pandoc } from "@pandoc/wrapper"
+import { dirname, resolve } from "path"
+import { walkBlock } from "../../../filter-utils/lib"
 
-async function collectAsyncGenerator<T>(iter: AsyncIterable<T>) {
-  const ret: T[] = []
-  for await (const item of iter) ret.push(item)
-  return ret
+function parseBlocks(path: string, lang = "markdown") {
+  return pandoc(undefined, "markdown", { "": path }).then(json => json!.blocks)
 }
 
-async function parseBlocks(path: string, lang = "markdown") {
-  const { stdout } = await execa(
-    "pandoc",
-    ["-f", lang, "-t", "json", resolve(path)],
-    {
-      stdio: ["ignore", "pipe", "inherit"]
-    }
-  )
-  const ast: AST.Document = JSON.parse(stdout)
-  return ast.blocks
-}
-
-export async function* transformBlocks(
-  blocks: AST.Block[] | Promise<AST.Block[]>
-): AsyncIterableIterator<AST.Block> {
-  for (const block of await Promise.resolve(blocks)) {
-    if (
-      block.t !== "CodeBlock" ||
-      block.c[0 /* attrs */][1 /* classes */][0 /* lang */] !== "include"
-    ) {
-      yield block
+export async function transformBlocks(
+  baseFolder: string,
+  blocks: AST.Block[]
+): Promise<void> {
+  for (const block of await walkBlock("CodeBlock", blocks, true)) {
+    if (block.c[0 /* attrs */][1 /* classes */][0 /* lang */] !== "include")
       continue
-    }
 
-    const files = (block as AST.Block.CodeBlock).c[1 /* content */]
-      .trim()
-      .split("\n")
+    const files = block.c[1 /* content */].trim().split("\n")
 
     for (const filePath of files) {
       const [path, lang = "markdown"] = filePath
@@ -42,15 +23,26 @@ export async function* transformBlocks(
         .split("!")
         .map(str => str.trim())
 
-      yield* transformBlocks(parseBlocks(path, lang))
+      const file = resolve(baseFolder, path)
+      const folder = dirname(file)
+
+      const blocks = await parseBlocks(file, lang)
+      transformBlocks(folder, blocks)
+
+      const div: AST.Block.Div = {
+        t: "Div",
+        c: [["", ["included"], []], blocks]
+      }
+      Object.assign(block, div)
     }
   }
 }
 
 export async function transformFile(
+  baseFolder: string,
   input: AST.Document
 ): Promise<AST.Document> {
-  input.blocks = await collectAsyncGenerator(transformBlocks(input.blocks))
+  transformBlocks(baseFolder, input.blocks)
   return input
 }
 
