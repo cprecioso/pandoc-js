@@ -1,11 +1,11 @@
 {
   "name": "pandoc-include",
   "version": "1.0.2",
-  "homepage": "https://gitlab.com/cprecioso/pandoc-utils/tree/master/packages/filters/include#readme",
+  "homepage": "https://github.com/cprecioso/pandoc-js/tree/master/filters/include#readme",
   "bugs": {
-    "url": "https://gitlab.com/cprecioso/pandoc-utils/issues"
+    "url": "https://github.com/cprecioso/pandoc-js/issues"
   },
-  "repository": "git+https://gitlab.com/cprecioso/pandoc-utils.git",
+  "repository": "git+https://github.com/cprecioso/pandoc-js.git",
   "license": "MIT",
   "author": "Carlos Precioso <kalprestito@gmail.com>",
   "files": [
