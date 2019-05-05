@@ -1,3 +1,5 @@
+// Compatible with pandoc-types as of 1.17.0.5
+
 /** The supported `pandoc-types` AST version as a type. */
 export type Version = [1, 17, ...number[]]
 
