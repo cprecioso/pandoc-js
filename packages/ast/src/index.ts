@@ -26,8 +26,10 @@ declare namespace _ {
     type MaxLength = 5
   }
 
+  type Values<T extends {}> = T[keyof T]
+
   /** A wrapper for a `pandoc` node. */
-  type Node<T extends string, U = undefined> = U extends undefined
+  type DataType<T extends string, U = undefined> = U extends undefined
     ? {
         /** Name of the node type */ t: T
         /** Content of the node */ c?: U
@@ -69,34 +71,35 @@ export default Document
 
 /** Metadata for the document: title, authors, date */
 export interface Meta {
-  [key: string]: Meta.Value
+  [key: string]: MetaValue
 }
 
-export declare namespace Meta {
-  type Value = _All[keyof _All]
+export type MetaValue = _.Values<MetaValue._All>
 
-  interface _All {
-    MetaMap: Map
-    MetaList: List
-    MetaBool: Bool
-    MetaString: String
-    MetaInlines: Inlines
-    MetaBlocks: Blocks
+export namespace MetaValue {
+  export interface _All {
+    MetaMap: MetaMap
+    MetaList: MetaList
+    MetaBool: MetaBool
+    MetaString: MetaString
+    MetaInlines: MetaInlines
+    MetaBlocks: MetaBlocks
   }
 
-  interface Map extends _.Node<"MetaMap", { [key: string]: Meta.Value }> {}
-  interface List extends _.Node<"MetaList", Meta.Value[]> {}
-  interface Bool extends _.Node<"MetaBool", boolean> {}
-  interface String extends _.Node<"MetaString", string> {}
-  interface Inlines extends _.Node<"MetaInlines", Inline[]> {}
-  interface Blocks extends _.Node<"MetaBlocks", Block[]> {}
+  export interface MetaMap
+    extends _.DataType<"MetaMap", { [key: string]: MetaValue }> {}
+  export interface MetaList extends _.DataType<"MetaList", MetaValue[]> {}
+  export interface MetaBool extends _.DataType<"MetaBool", boolean> {}
+  export interface MetaString extends _.DataType<"MetaString", string> {}
+  export interface MetaInlines extends _.DataType<"MetaInlines", Inline[]> {}
+  export interface MetaBlocks extends _.DataType<"MetaBlocks", Block[]> {}
 }
 
 /** Block element */
-export type Block = Block._All[keyof Block._All]
+export type Block = _.Values<Block._All>
 
-export declare namespace Block {
-  interface _All {
+export namespace Block {
+  export interface _All {
     Plain: Plain
     Para: Para
     LineBlock: LineBlock
@@ -114,17 +117,17 @@ export declare namespace Block {
   }
 
   /** Plain text, not a paragraph */
-  interface Plain extends _.Node<"Plain", Inline[]> {}
+  export interface Plain extends _.DataType<"Plain", Inline[]> {}
 
   /** Paragraph */
-  interface Para extends _.Node<"Para", Inline[]> {}
+  export interface Para extends _.DataType<"Para", Inline[]> {}
 
   /** Multiple non-breaking lines */
-  interface LineBlock extends _.Node<"LineBlock", Inline[][]> {}
+  export interface LineBlock extends _.DataType<"LineBlock", Inline[][]> {}
 
   /** Code block (literal) with attributes */
-  interface CodeBlock
-    extends _.Node<
+  export interface CodeBlock
+    extends _.DataType<
       "CodeBlock",
       _.Tuple<{
         /** Attributes */ 0: Attr
@@ -133,8 +136,8 @@ export declare namespace Block {
     > {}
 
   /** Raw block */
-  interface RawBlock
-    extends _.Node<
+  export interface RawBlock
+    extends _.DataType<
       "RawBlock",
       _.Tuple<{
         /** Format */ 0: Format
@@ -143,34 +146,36 @@ export declare namespace Block {
     > {}
 
   /** Block quote (list of `Block`s) */
-  interface BlockQuote extends _.Node<"BlockQuote", Block[]> {}
+  export interface BlockQuote extends _.DataType<"BlockQuote", Block[]> {}
 
   /** Ordered list (attributes and a list of items, each a list of `Block`s) */
-  interface OrderedList
-    extends _.Node<
+  export interface OrderedList
+    extends _.DataType<
       "OrderedList",
       _.Tuple<{
-        /** List Attributes */ 0: List.Attributes
+        /** List Attributes */ 0: ListAttributes
         /** Content */ 1: Block[][]
       }>
     > {}
 
   /** Bullet list (list of items, each a list of `Block`s) */
-  interface BulletList extends _.Node<"BulletList", Block[][]> {}
+  export interface BulletList extends _.DataType<"BulletList", Block[][]> {}
 
   /** Definition list. Each list item is a pair consisting of a term (a list of `Inline`s) and one or more definitions (each a list of `Block`s) */
-  interface DefinitionList
-    extends _.Node<
+  export interface DefinitionList
+    extends _.DataType<
       "DefinitionList",
-      _.Tuple<{
-        /** Term */ 0: Inline[]
-        /** Definition */ 1: Block[][]
-      }>[]
+      Array<
+        _.Tuple<{
+          /** Term */ 0: Inline[]
+          /** Definition */ 1: Block[][]
+        }>
+      >
     > {}
 
   /** Header - level (`number`) and text (`Inline`s) */
-  interface Header
-    extends _.Node<
+  export interface Header
+    extends _.DataType<
       "Header",
       _.Tuple<{
         /** Level */ 0: number
@@ -180,24 +185,24 @@ export declare namespace Block {
     > {}
 
   /** Horizontal rule */
-  interface HorizontalRule extends _.Node<"HorizontalRule"> {}
+  export interface HorizontalRule extends _.DataType<"HorizontalRule"> {}
 
   /** Table, with caption, column alignments (required), relative column widths (0 = default), column headers (each a list of `Block`s), and rows (each a list of lists of `Block`s) */
-  interface Table
-    extends _.Node<
+  export interface Table
+    extends _.DataType<
       "Table",
       _.Tuple<{
         /** Caption */ 0: Inline[]
         /** Column alignments */ 1: Alignment[]
         /** Relative column width */ 2: number[]
-        /** Column headers */ 3: Table.Cell[]
-        /** Rows */ 4: Table.Cell[][]
+        /** Column headers */ 3: TableCell[]
+        /** Rows */ 4: TableCell[][]
       }>
     > {}
 
   /** Generic block container with attributes */
-  interface Div
-    extends _.Node<
+  export interface Div
+    extends _.DataType<
       "Div",
       _.Tuple<{
         /** Attributes */ 0: Attr
@@ -206,14 +211,14 @@ export declare namespace Block {
     > {}
 
   /** Nothing */
-  interface Null extends _.Node<"Null"> {}
+  export interface Null extends _.DataType<"Null"> {}
 }
 
 /** Inline elements */
-export type Inline = Inline._All[keyof Inline._All]
+export type Inline = _.Values<Inline._All>
 
-export declare namespace Inline {
-  interface _All {
+export namespace Inline {
+  export interface _All {
     Str: Str
     Emph: Emph
     Strong: Strong
@@ -236,39 +241,39 @@ export declare namespace Inline {
   }
 
   /** Text (`string`) */
-  interface Str extends _.Node<"Str", string> {}
+  export interface Str extends _.DataType<"Str", string> {}
 
   /** Emphasized text (list of `Inline`s) */
-  interface Emph extends _.Node<"Emph", Inline[]> {}
+  export interface Emph extends _.DataType<"Emph", Inline[]> {}
 
   /** Strongly emphasized text (list of `Inline`s) */
-  interface Strong extends _.Node<"Strong", Inline[]> {}
+  export interface Strong extends _.DataType<"Strong", Inline[]> {}
 
   /** Strikeout text (list of `Inline`s) */
-  interface Strikeout extends _.Node<"Strikeout", Inline[]> {}
+  export interface Strikeout extends _.DataType<"Strikeout", Inline[]> {}
 
   /** Superscripted text (list of `Inline`s) */
-  interface Superscript extends _.Node<"Superscript", Inline[]> {}
+  export interface Superscript extends _.DataType<"Superscript", Inline[]> {}
 
   /** Subscripted text (list of `Inline`s) */
-  interface Subscript extends _.Node<"Subscript", Inline[]> {}
+  export interface Subscript extends _.DataType<"Subscript", Inline[]> {}
 
   /** Small caps text (list of `Inline`s) */
-  interface SmallCaps extends _.Node<"SmallCaps", Inline[]> {}
+  export interface SmallCaps extends _.DataType<"SmallCaps", Inline[]> {}
 
   /** Quoted text (list of `Inline`s) */
-  interface Quoted
-    extends _.Node<
+  export interface Quoted
+    extends _.DataType<
       "Quoted",
       _.Tuple<{
-        /**Quote type */ 0: Quote.Type
+        /** Quote type */ 0: QuoteType
         /** Text */ 1: Inline[]
       }>
     > {}
 
   /** Citation (list of `Inline`s) */
-  interface Cite
-    extends _.Node<
+  export interface Cite
+    extends _.DataType<
       "Cite",
       _.Tuple<{
         /** Reference */ 0: Citation[]
@@ -277,8 +282,8 @@ export declare namespace Inline {
     > {}
 
   /** Inline code (literal) */
-  interface Code
-    extends _.Node<
+  export interface Code
+    extends _.DataType<
       "Code",
       _.Tuple<{
         /** Attributes */ 0: Attr
@@ -287,17 +292,17 @@ export declare namespace Inline {
     > {}
 
   /** Inter-word space */
-  interface Space extends _.Node<"Space"> {}
+  export interface Space extends _.DataType<"Space"> {}
 
   /** Soft line break */
-  interface SoftBreak extends _.Node<"SoftBreak"> {}
+  export interface SoftBreak extends _.DataType<"SoftBreak"> {}
 
   /** Hard line break */
-  interface LineBreak extends _.Node<"LineBreak"> {}
+  export interface LineBreak extends _.DataType<"LineBreak"> {}
 
   /** TeX math (literal) */
-  interface Math
-    extends _.Node<
+  export interface Math
+    extends _.DataType<
       "Math",
       _.Tuple<{
         /** Math type */ 0: MathType
@@ -306,18 +311,18 @@ export declare namespace Inline {
     > {}
 
   /** Raw inline */
-  interface RawInline
-    extends _.Node<
+  export interface RawInline
+    extends _.DataType<
       "RawInline",
       _.Tuple<{
-        /** Format */ 0: Format.Output
+        /** Format */ 0: Format._Output
         /** Content */ 1: string
       }>
     > {}
 
   /** Hyperlink: alt text (list of `Inline`s), `Target` */
-  interface Link
-    extends _.Node<
+  export interface Link
+    extends _.DataType<
       "Link",
       _.Tuple<{
         /** Attributes */ 0: Attr
@@ -327,8 +332,8 @@ export declare namespace Inline {
     > {}
 
   /** Image: alt text (list of `Inline`s), `Target` */
-  interface Image
-    extends _.Node<
+  export interface Image
+    extends _.DataType<
       "Image",
       _.Tuple<{
         /** Attributes */ 0: Attr
@@ -338,11 +343,11 @@ export declare namespace Inline {
     > {}
 
   /** Footnote or endnote */
-  interface Note extends _.Node<"Note", Block[]> {}
+  export interface Note extends _.DataType<"Note", Block[]> {}
 
   /** Generic inline container with attributes */
-  interface Span
-    extends _.Node<
+  export interface Span
+    extends _.DataType<
       "Span",
       _.Tuple<{
         /** Attributes */ 0: Attr
@@ -352,43 +357,75 @@ export declare namespace Inline {
 }
 
 /** Alignment of a table column */
-export type Alignment =
-  | "AlignLeft"
-  | "AlignRight"
-  | "AlignCenter"
-  | "AlignDefault"
+export type Alignment = _.Values<Alignment._All>
 
-export declare namespace List {
-  /** List attributes. */
-  interface Attributes
-    extends _.Tuple<{
-      /** Starting number */ 0: number
-      /** Number style */ 1: Number.Style
-      /** Number delimiter */ 2: Number.Delim
-    }> {}
-
-  namespace Number {
-    /** Style of list numbers. */
-    type Style =
-      | "DefaultStyle"
-      | "Example"
-      | "Decimal"
-      | "LowerRoman"
-      | "UpperRoman"
-      | "LowerAlpha"
-      | "UpperAlpha"
-
-    /** Delimiter of list numbers. */
-    type Delim = "DefaultDelim" | "Period" | "OneParen" | "TwoParens"
+export namespace Alignment {
+  export interface _All {
+    AlignLeft: AlignLeft
+    AlignRight: AlignRight
+    AlignCenter: AlignCenter
+    AlignDefault: AlignDefault
   }
+
+  export interface AlignLeft extends _.DataType<"AlignLeft"> {}
+  export interface AlignRight extends _.DataType<"AlignRight"> {}
+  export interface AlignCenter extends _.DataType<"AlignCenter"> {}
+  export interface AlignDefault extends _.DataType<"AlignDefault"> {}
+}
+/** List attributes. */
+export interface ListAttributes
+  extends _.Tuple<{
+    /** Starting number */ 0: number
+    /** Number style */ 1: ListNumberStyle
+    /** Number delimiter */ 2: ListNumberDelim
+  }> {}
+
+/** Style of list numbers. */
+export type ListNumberStyle = _.Values<ListNumberStyle._All>
+
+export namespace ListNumberStyle {
+  export interface _All {
+    DefaultStyle: DefaultStyle
+    Example: Example
+    Decimal: Decimal
+    LowerRoman: LowerRoman
+    UpperRoman: UpperRoman
+    LowerAlpha: LowerAlpha
+    UpperAlpha: UpperAlpha
+  }
+
+  export interface DefaultStyle extends _.DataType<"DefaultStyle"> {}
+  export interface Example extends _.DataType<"Example"> {}
+  export interface Decimal extends _.DataType<"Decimal"> {}
+  export interface LowerRoman extends _.DataType<"LowerRoman"> {}
+  export interface UpperRoman extends _.DataType<"UpperRoman"> {}
+  export interface LowerAlpha extends _.DataType<"LowerAlpha"> {}
+  export interface UpperAlpha extends _.DataType<"UpperAlpha"> {}
+}
+
+/** Delimiter of list numbers. */
+export type ListNumberDelim = _.Values<ListNumberDelim._All>
+
+export namespace ListNumberDelim {
+  export interface _All {
+    DefaultDelim: DefaultDelim
+    Period: Period
+    OneParen: OneParen
+    TwoParens: TwoParens
+  }
+
+  export interface DefaultDelim extends _.DataType<"DefaultDelim"> {}
+  export interface Period extends _.DataType<"Period"> {}
+  export interface OneParen extends _.DataType<"OneParen"> {}
+  export interface TwoParens extends _.DataType<"TwoParens"> {}
 }
 
 /** Pandoc formats */
-export type Format = Format.Input | Format.Output
+export type Format = Format._Input | Format._Output
 
 export namespace Format {
   /** Pandoc input formats */
-  export type Input =
+  export type _Input =
     | "commonmark"
     | "creole"
     | "docbook"
@@ -420,7 +457,7 @@ export namespace Format {
     | "vimwiki"
 
   /** Pandoc output formats */
-  export type Output =
+  export type _Output =
     | "asciidoc"
     | "beamer"
     | "commonmark"
@@ -474,20 +511,28 @@ export interface Attr
   extends _.Tuple<{
     /** Identifier */ 0: string
     /** Classes */ 1: string[]
-    /** Key-value pairs */ 2: _.Tuple<{
-      /** Key */ 0: string
-      /** Value */ 1: string
-    }>[]
+    /** Key-value pairs */ 2: Array<
+      _.Tuple<{
+        /** Key */ 0: string
+        /** Value */ 1: string
+      }>
+    >
   }> {}
 
-export declare namespace Table {
-  /** Table cells are list of `Block`s */
-  interface Cell extends Array<Block> {}
-}
+/** Table cells are list of `Block`s */
+export interface TableCell extends Array<Block> {}
 
-export declare namespace Quote {
-  /** Type of quotation marks to use in `Quoted` inline. */
-  export type Type = "SingleQuote" | "DoubleQuote"
+/** Type of quotation marks to use in `Quoted` inline. */
+export type QuoteType = _.Values<QuoteType._All>
+
+export namespace QuoteType {
+  export interface _All {
+    SingleQuote: SingleQuote
+    DoubleQuote: DoubleQuote
+  }
+
+  export interface SingleQuote extends _.DataType<"SingleQuote"> {}
+  export interface DoubleQuote extends _.DataType<"DoubleQuote"> {}
 }
 
 /** [url, title] */
@@ -498,23 +543,43 @@ export interface Target
   }> {}
 
 /** Type of math element (display or inline). */
-export type MathType = "DisplayMath" | "InlineMath"
+export type MathType = _.Values<MathType._All>
+
+export namespace MathType {
+  export interface _All {
+    DisplayMath: DisplayMath
+    InlineMath: InlineMath
+  }
+
+  export interface DisplayMath extends _.DataType<"DisplayMath"> {}
+  export interface InlineMath extends _.DataType<"InlineMath"> {}
+}
 
 export interface Citation {
   citationId: string
   citationPrefix: Inline[]
   citationSuffix: Inline[]
-  citationMode: Citation.Mode
+  citationMode: CitationMode
   citationNoteNum: number
   citationHash: number
 }
 
-export declare namespace Citation {
-  type Mode = "AuthorInText" | "SuppressAuthor" | "NormalCitation"
+export type CitationMode = _.Values<CitationMode._All>
+
+export namespace CitationMode {
+  export interface _All {
+    AuthorInText: AuthorInText
+    SuppressAuthor: SuppressAuthor
+    NormalCitation: NormalCitation
+  }
+
+  export interface AuthorInText extends _.DataType<"AuthorInText"> {}
+  export interface SuppressAuthor extends _.DataType<"SuppressAuthor"> {}
+  export interface NormalCitation extends _.DataType<"NormalCitation"> {}
 }
 
-export type _Node = _Node._All[keyof _Node._All]
+export type _Node = _.Values<_Node._All>
 
-export declare namespace _Node {
-  type _All = Block._All & Inline._All
+export namespace _Node {
+  export type _All = Block._All & Inline._All
 }
