@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "devDependencies": {
+    "husky": "^2.2.0",
+    "prettier": "^1.17.0",
+    "pretty-quick": "^1.10.0",
+    "sort-package-json": "^1.22.1"
+  }
+}
