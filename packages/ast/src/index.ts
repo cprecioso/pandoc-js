@@ -110,9 +110,9 @@ export declare namespace Block {
   /** Table, with caption, column alignments (required), relative column widths (0 = default), column headers (each a list of `Block`s), and rows (each a list of lists of `Block`s) */
   interface Table
     extends _ASTNode<
-        "Table",
-        [Inline[], Alignment[], number[], Table.Cell[], Table.Cell[][]]
-      > {}
+      "Table",
+      [Inline[], Alignment[], number[], Table.Cell[], Table.Cell[][]]
+    > {}
   /** Generic block container with attributes */
   interface Div extends _ASTNode<"Div", [Attr, Block[]]> {}
   /** Nothing */

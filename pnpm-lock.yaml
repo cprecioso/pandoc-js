@@ -1,4 +1,24 @@
 importers:
+  filters/include:
+    dependencies:
+      '@pandoc/filter-utils': 'link:../../packages/filter-utils'
+      '@pandoc/wrapper': 'link:../../packages/wrapper'
+      execa: 1.0.0
+      tslib: 1.9.3
+    devDependencies:
+      '@pandoc/ast': 'link:../../packages/ast'
+      '@types/execa': 0.9.0
+      del-cli: 1.1.0
+      typescript: 3.1.3
+    specifiers:
+      '@pandoc/ast': ^0.1.0
+      '@pandoc/filter-utils': ^0.0.0
+      '@pandoc/wrapper': ^0.0.0
+      '@types/execa': ^0.9.0
+      del-cli: ^1.1.0
+      execa: ^1.0.0
+      tslib: ^1.9.3
+      typescript: ^3.1.3
   packages/ast:
     dependencies:
       tslib: 1.9.3
@@ -23,26 +43,6 @@ importers:
       '@types/get-stdin': ^5.0.1
       del-cli: ^1.1.0
       get-stdin: ^6.0.0
-      tslib: ^1.9.3
-      typescript: ^3.1.3
-  filters/include:
-    dependencies:
-      '@pandoc/filter-utils': 'link:../../packages/filter-utils'
-      '@pandoc/wrapper': 'link:../../packages/wrapper'
-      execa: 1.0.0
-      tslib: 1.9.3
-    devDependencies:
-      '@pandoc/ast': 'link:../../packages/ast'
-      '@types/execa': 0.9.0
-      del-cli: 1.1.0
-      typescript: 3.1.3
-    specifiers:
-      '@pandoc/ast': ^0.1.0
-      '@pandoc/filter-utils': ^0.0.0
-      '@pandoc/wrapper': ^0.0.0
-      '@types/execa': ^0.9.0
-      del-cli: ^1.1.0
-      execa: ^1.0.0
       tslib: ^1.9.3
       typescript: ^3.1.3
   packages/wrapper:
