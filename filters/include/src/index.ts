@@ -1,7 +1,7 @@
 import * as AST from "@pandoc/ast"
+import { walkBlock } from "@pandoc/filter-utils"
 import { pandoc } from "@pandoc/wrapper"
 import { dirname, resolve } from "path"
-import { walkBlock } from "../../../filter-utils/lib"
 
 function parseBlocks(path: string, lang = "markdown") {
   return pandoc(undefined, "markdown", { "": path }).then(json => json!.blocks)

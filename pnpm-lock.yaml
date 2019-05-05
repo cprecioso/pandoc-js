@@ -25,14 +25,14 @@ importers:
       get-stdin: ^6.0.0
       tslib: ^1.9.3
       typescript: ^3.1.3
-  packages/filters/include:
+  filters/include:
     dependencies:
-      '@pandoc/filter-utils': 'link:../../filter-utils'
-      '@pandoc/wrapper': 'link:../../wrapper'
+      '@pandoc/filter-utils': 'link:../../packages/filter-utils'
+      '@pandoc/wrapper': 'link:../../packages/wrapper'
       execa: 1.0.0
       tslib: 1.9.3
     devDependencies:
-      '@pandoc/ast': 'link:../../ast'
+      '@pandoc/ast': 'link:../../packages/ast'
       '@types/execa': 0.9.0
       del-cli: 1.1.0
       typescript: 3.1.3

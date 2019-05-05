@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src",
@@ -7,8 +7,8 @@
   },
   "include": ["src/**/*"],
   "references": [
-    { "path": "../../ast" },
-    { "path": "../../filter-utils" },
-    { "path": "../../wrapper" }
+    { "path": "../../packages/ast" },
+    { "path": "../../packages/filter-utils" },
+    { "path": "../../packages/wrapper" }
   ]
 }
