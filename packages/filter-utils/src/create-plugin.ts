@@ -1,9 +1,7 @@
 import * as AST from "@pandoc/ast"
 import getStdin from "get-stdin"
 
-export interface Filter {
-  (ast: AST.Document): AST.Document | Promise<AST.Document>
-}
+export type Filter = (ast: AST.Document) => AST.Document | Promise<AST.Document>
 
 export function createPlugin(filter: Filter) {
   getStdin()
