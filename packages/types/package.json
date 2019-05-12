@@ -1,12 +1,12 @@
 {
-  "name": "@pandoc/ast",
-  "version": "0.1.0",
+  "name": "@pandoc/types",
+  "version": "1.0.0",
   "description": "Pandoc AST types",
   "keywords": [
     "ast",
     "pandoc"
   ],
-  "homepage": "https://github.com/cprecioso/pandoc-js/tree/master/packages/ast#readme",
+  "homepage": "https://github.com/cprecioso/pandoc-js/tree/master/packages/types#readme",
   "bugs": {
     "url": "https://github.com/cprecioso/pandoc-js/issues"
   },
