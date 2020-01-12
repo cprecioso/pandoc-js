@@ -1,10 +1,10 @@
-// Compatible with pandoc-types as of 1.17.0.5
+// Compatible with pandoc-types as of 1.20
 
 /** The supported `pandoc-types` AST version as a type. */
-export type Version = [1, 17, ...number[]]
+export type Version = [1, 20, ...number[]]
 
 /** The supported `pandoc-types` AST version. */
-export const version: Readonly<Version> = [1, 17]
+export const version: Readonly<Version> = [1, 20]
 
 /** Type helpers */
 declare namespace _ {
