@@ -1,22 +1,23 @@
 import { Block, Inline } from "@pandoc/types"
+import { nodeIsOfType, TypeOfNode } from "./util"
 import { walkBlocks, walkInlines } from "./walkers"
 
-export function* walkBlock<T extends keyof Block._All>(
-  type: T,
+export function* walkBlock<T extends Block>(
+  type: TypeOfNode<T>,
   blocks: Block[],
   inInlines = false
-): IterableIterator<Block._All[T]> {
+): IterableIterator<T> {
   for (const block of walkBlocks(blocks, inInlines)) {
-    if (block.t === type) yield block
+    if (nodeIsOfType(block, type)) yield block
   }
 }
 
-export function* walkInline<T extends keyof Inline._All>(
-  type: T,
+export function* walkInline<T extends Inline>(
+  type: TypeOfNode<T>,
   inlines: Inline[],
   inBlocks = false
-): IterableIterator<Inline._All[T]> {
+): IterableIterator<T> {
   for (const inline of walkInlines(inlines, inBlocks)) {
-    if (inline.t === type) yield inline
+    if (nodeIsOfType(inline, type)) yield inline
   }
 }
