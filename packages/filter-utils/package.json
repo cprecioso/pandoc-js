@@ -23,9 +23,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc --build",
+    "prepare": "tsc --build",
     "clean": "del-cli lib",
-    "prepublishOnly": "npm run clean; npm run build",
     "watch": "tsc --build --watch"
   },
   "dependencies": {

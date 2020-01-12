@@ -24,7 +24,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc --build",
+    "prepare": "tsc --build",
     "clean": "del-cli lib",
     "watch": "tsc --build --watch"
   },
