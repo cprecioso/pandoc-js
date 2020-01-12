@@ -14,7 +14,8 @@
   "license": "MIT",
   "author": "Carlos Precioso <kalprestito@gmail.com>",
   "files": [
-    "lib"
+    "lib",
+    "!lib/*.map"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
