@@ -1,6 +1,6 @@
 {
   "name": "@pandoc/filter-utils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Utils for creating pandoc filters",
   "keywords": [
     "filter",
