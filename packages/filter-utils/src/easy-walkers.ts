@@ -1,4 +1,4 @@
-import { Block, Inline } from "@pandoc/ast"
+import { Block, Inline } from "@pandoc/types"
 import { walkBlocks, walkInlines } from "./walkers"
 
 export function* walkBlock<T extends keyof Block._All>(

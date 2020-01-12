@@ -1,4 +1,4 @@
-import * as AST from "@pandoc/ast"
+import * as AST from "@pandoc/types"
 import getStdin from "get-stdin"
 
 export type Filter = (ast: AST.Document) => AST.Document | Promise<AST.Document>

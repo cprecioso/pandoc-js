@@ -1,4 +1,4 @@
-import { Block, Inline } from "@pandoc/ast"
+import { Block, Inline } from "@pandoc/types"
 
 export function* walkBlocks(
   blocks: Iterable<Block>,
