@@ -33,7 +33,7 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@pandoc/ast": "^0.1.0",
+    "@pandoc/types": "workspace:*",
     "del-cli": "^3.0.0",
     "typescript": "^3.7.4"
   }
