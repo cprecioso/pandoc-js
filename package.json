@@ -6,9 +6,9 @@
     }
   },
   "devDependencies": {
-    "husky": "^2.2.0",
-    "prettier": "^1.17.0",
-    "pretty-quick": "^1.10.0",
-    "sort-package-json": "^1.22.1"
+    "husky": "^4.0.7",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "sort-package-json": "^1.39.0"
   }
 }

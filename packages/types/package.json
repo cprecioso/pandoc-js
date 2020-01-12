@@ -28,11 +28,8 @@
     "prepublishOnly": "npm run clean; npm run build",
     "watch": "tsc --build --watch"
   },
-  "dependencies": {
-    "tslib": "^1.9.3"
-  },
   "devDependencies": {
-    "del-cli": "^1.1.0",
-    "typescript": "^3.4.5"
+    "del-cli": "^3.0.0",
+    "typescript": "^3.7.4"
   }
 }

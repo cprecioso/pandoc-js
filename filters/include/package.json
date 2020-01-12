@@ -28,15 +28,14 @@
     "watch": "tsc --build --watch"
   },
   "dependencies": {
-    "@pandoc/filter-utils": "^0.0.0",
-    "@pandoc/wrapper": "^0.0.0",
-    "execa": "^1.0.0",
-    "tslib": "^1.9.3"
+    "@pandoc/filter-utils": "workspace:^0.0.0",
+    "@pandoc/wrapper": "workspace:^0.0.0",
+    "execa": "^4.0.0",
+    "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@pandoc/ast": "^0.1.0",
-    "@types/execa": "^0.9.0",
-    "del-cli": "^1.1.0",
-    "typescript": "^3.4.5"
+    "del-cli": "^3.0.0",
+    "typescript": "^3.7.4"
   }
 }
