@@ -1,6 +1,6 @@
 {
   "name": "@pandoc/types",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Pandoc AST types",
   "keywords": [
     "ast",
@@ -26,7 +26,6 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "del-cli lib",
-    "prepublishOnly": "pnpm run clean; pnpm run build",
     "watch": "tsc --build --watch"
   },
   "devDependencies": {
